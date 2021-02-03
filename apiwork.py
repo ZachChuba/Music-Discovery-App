@@ -2,6 +2,7 @@ import os
 import requests
 import spotipy
 import random
+import song
 from dotenv import load_dotenv, find_dotenv
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -13,16 +14,16 @@ spotify_auth_manager = spotipy.SpotifyClientCredentials(
     client_secret=CLIENT_SECRET
 )
 
-def get_top_song(auth_manager):
+def get_top_songs(auth_manager):
     '''
-    Dynamically retrieves data on top songs from a random artist
+    Fetches top songs from artists from spotify
     
     :param auth_manager: Authentication manager for Spotify
     :return: Json of an artist's top pieces
     :rtype: json object
     '''
-    # kanye, random, random
-    artist_ids = ['5K4W6rqBFWDnAN6FQUkS6x', ]
+    # kanye, rick roll, random
+    artist_ids = ['5K4W6rqBFWDnAN6FQUkS6x', '0gxyHStUsqpMadRV0Di1Qt', ]
     choice = random.randint(0, len(artist_ids) - 1)
     
     req_url = 'https://api.spotify.com/v1/artists/{id}/top-tracks'.format(id=artist_ids[choice])
@@ -39,3 +40,27 @@ def get_top_song(auth_manager):
         headers=req_header
     )
     return response.json()
+
+
+def top_songs(auth_manager):
+    """
+    Gets the top songs from one of 3 artists
+    
+    :param auth_manager: spotipy authentication manager
+    :return: list of :class: Song for an artist
+    :rtype: List -> song.Song
+    """
+    
+    json_data = get_top_songs(auth_manager)
+    readable_top_songs = []
+    
+    for i in range (len(json_data['tracks'])):
+        name = json_data['tracks'][i]['artists'][0]['name']         # artist name
+        title = json_data['tracks'][i]['name']                      # track name
+        preview = json_data['tracks'][i]['preview_url']             # preview url 
+        image = json_data['tracks'][i]['album']['images'][0]['url'] # image
+        
+        the_song = song.Song(title, name, image, preview)
+        readable_top_songs.append(the_song)
+    
+    return readable_top_songs
