@@ -32,3 +32,13 @@ class Song:
     
     def getPreview(self):
         return self.preview
+    
+    def getAttrs(self):
+        '''
+        :return: tuple of title, name, thumbnail, and preview if preview exists
+        :rtype: Tuple -> String
+        '''
+        if self.previewExists():
+            return (self.title, self.name, self.thumbnail, self.preview)
+        else:
+            return (self.title, self.name, self.thumbnail, None)

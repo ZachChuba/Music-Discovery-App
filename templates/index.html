@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+    
+<head>
+    <link rel="stylesheet" href={{ url_for('static', filename='style.css') }}/>
+    <charset="utf-8"></charset>
+</head>
+<body>
+    <h1>{{ song_data[0] }}</h1>
+    <h2>by {{ song_data[1] }}</h2>
+    <img src={{ song_data[2] }} />
+    {% if len < 4 %}
+        <h3>No Preview Available</h3>
+    {% else %}
+        <audio
+            controls
+            src={{ song_data[3] }}>
+                Audio not supported by browser
+        </audio>
+    {% endif %}
+</body>
+    
+</html>

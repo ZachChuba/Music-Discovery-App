@@ -2,10 +2,12 @@
 1. Create a spotify developer account here: https://developer.spotify.com/dashboard/login
 2. Click create an app, fill out required fields
 3. Create a .env file in the project's directory, then add this code to it (with your IDs):
-`export SPOTIPY_CLIENT_ID='YOUR_SPOTIFY_CLIENT_ID'
-export SPOTIPY_CLIENT_SECRET='YOUR_SPOTIFY_CLIENT_SECRET'`
+```bash
+export SPOTIPY_CLIENT_ID='YOUR_SPOTIFY_CLIENT_ID'
+export SPOTIPY_CLIENT_SECRET='YOUR_SPOTIFY_CLIENT_SECRET'
+```
 
-## Ensure you have the following libraries installed:
+### Ensure you have the following libraries installed:
 1. sudo pip install requests
 2. sudo pip install spotipy
 3. sudo pip install python-dotenv

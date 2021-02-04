@@ -14,14 +14,15 @@ spotify_auth_manager = spotipy.SpotifyClientCredentials(
     client_secret=CLIENT_SECRET
 )
 
-def get_top_songs(auth_manager):
+def _get_top_songs():
     '''
     Fetches top songs from artists from spotify
     
-    :param auth_manager: Authentication manager for Spotify
+    :global spotify_auth_manager: Authentication manager for Spotify
     :return: Json of an artist's top pieces
     :rtype: json object
     '''
+    global spotify_auth_manager
     # kanye, rick roll, random
     artist_ids = ['5K4W6rqBFWDnAN6FQUkS6x', '0gxyHStUsqpMadRV0Di1Qt', ]
     choice = random.randint(0, len(artist_ids) - 1)
@@ -31,7 +32,7 @@ def get_top_songs(auth_manager):
         'market' : 'US'
     }
     req_header = {
-        'Authorization' : 'Bearer {}'.format(auth_manager.get_access_token())
+        'Authorization' : 'Bearer {}'.format(spotify_auth_manager.get_access_token())
     }
     
     response = requests.get(
@@ -42,16 +43,14 @@ def get_top_songs(auth_manager):
     return response.json()
 
 
-def top_songs(auth_manager):
+def top_songs():
     """
     Gets the top songs from one of 3 artists
     
-    :param auth_manager: spotipy authentication manager
     :return: list of :class: Song for an artist
     :rtype: List -> song.Song
     """
-    
-    json_data = get_top_songs(auth_manager)
+    json_data = _get_top_songs()
     readable_top_songs = []
     
     for i in range (len(json_data['tracks'])):
