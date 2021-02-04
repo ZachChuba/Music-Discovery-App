@@ -1,0 +1,30 @@
+body {
+    /* background-color: #674d3c; */
+    background: url(../img/prism.png) repeat 0 0;
+    font: arial;
+}
+
+.text {
+    text-align: center;
+    color: #CACACA;
+}
+
+h1, h2, h3 {
+    font-family: 'Caladea', serif;
+}
+
+img {
+    border-radius: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+    padding-bottom: 1%;
+}
+
+audio {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}

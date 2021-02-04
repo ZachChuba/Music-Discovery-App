@@ -12,14 +12,13 @@ def app_runtime():
     songs = apiwork.top_songs()
     selected = songs[random.randint(0, len(songs) - 1)]
     song_attrs = selected.getAttrs()
-    length = len(song_attrs) - 1 if song_attrs[3] is None else len(song_attrs)
     
     return render_template(
         "index.html",
-        len = length,
         song_data = song_attrs
     )
-
+    
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.run(
     port=int(os.getenv('PORT', 8080)),
     host=os.getenv('IP', '0.0.0.0'),

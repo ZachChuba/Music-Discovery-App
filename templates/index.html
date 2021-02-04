@@ -3,18 +3,37 @@
     
 <head>
     <link rel="stylesheet" href={{ url_for('static', filename='style.css') }}/>
+    <link href="https://fonts.googleapis.com/css2?family=Caladea:ital,wght@1,700&display=swap" rel="stylesheet">
     <charset="utf-8"></charset>
 </head>
 <body>
-    <h1>{{ song_data[0] }}</h1>
-    <h2>by {{ song_data[1] }}</h2>
-    <img src={{ song_data[2] }} />
-    {% if len < 4 %}
-        <h3>No Preview Available</h3>
+    <div class="text">
+        <!-- Title -->
+        {% if song_data['title'] == None %}
+            <h1>Title Unavailable</h1>
+        {% else %}
+            <h1>{{ song_data['title'] }}</h1>
+        {% endif %}
+        <!-- Name -->
+        {% if song_data['name'] == None %}
+            <h2>by Name Unavailable</h2>
+        {% else %}
+            <h2>by {{ song_data['name'] }}</h2>
+        {% endif %}
+    </div>
+    <!-- Image -->
+    {% if song_data['thumbnail'] == None %}
+        <h3 class="text">Image Unavailable</h3>
+    {% else %}
+        <img src={{ song_data['thumbnail'] }} />
+    {% endif %}
+    <!-- Audio -->
+    {% if song_data['preview'] == None %}
+        <h3 class="text">No Preview Available</h3>
     {% else %}
         <audio
             controls
-            src={{ song_data[3] }}>
+            src={{ song_data['preview'] }}>
                 Audio not supported by browser
         </audio>
     {% endif %}
