@@ -25,10 +25,10 @@ def call_spotify_api():
     global spotify_auth_manager
     
     # kanye, rick roll, random
-    artist_ids = ['5K4W6rqBFWDnAN6FQUkS6x', '0gxyHStUsqpMadRV0Di1Qt', ]
-    choice = random.randint(0, len(artist_ids) - 1)
+    ARTIST_IDS = ['5K4W6rqBFWDnAN6FQUkS6x', '0gxyHStUsqpMadRV0Di1Qt', '7jVv8c5Fj3E9VhNjxT4snq']
+    choice = random.randint(0, len(ARTIST_IDS) - 1)
     
-    req_url = 'https://api.spotify.com/v1/artists/{id}/top-tracks'.format(id=artist_ids[choice])
+    req_url = 'https://api.spotify.com/v1/artists/{id}/top-tracks'.format(id=ARTIST_IDS[choice])
     req_params = {
         'market' : 'US'
     }
@@ -44,7 +44,7 @@ def call_spotify_api():
     return response.json()
 
 
-def top_songs():
+def get_song():
     """
     Gets the top songs from one of 3 artists
     
@@ -63,4 +63,47 @@ def top_songs():
         the_song = song.Song(title, name, image, preview)
         readable_top_songs.append(the_song)
     
-    return readable_top_songs
+    selected = readable_top_songs[random.randint(0, len(readable_top_songs) - 1)]
+    return selected
+    
+
+def call_genius_api(artist_name, song_title):
+    '''
+    :param artist_name: string name of artist
+    :param song_title: string song title
+    :return: json containing the lyrics url
+    :rtype: json
+    '''
+    
+    REQ_URL = 'https://api.genius.com/search'
+    search_query = '{} {}'.format(artist_name, song_title)
+    req_params = {
+        'q' : search_query
+    }
+    req_header = {
+        'Authorization' : 'Bearer {}'.format(os.getenv('GENIUS_AUTH'))
+    }
+    
+    response = requests.get(
+        url=REQ_URL,
+        params=req_params,
+        headers=req_header
+    )
+    return response.json()
+    
+    
+def get_song_lyrics(song):
+    '''
+    :param song: a song.Song
+    :return: a link to the lyrics for a song
+    :rtype: string
+    '''
+    
+    title = song.getTitle()
+    name = song.getName()
+    
+    lyrics_json = call_genius_api(name, title)
+    
+    print(not (lyrics_json is None))
+    
+    return lyrics_json['response']['hits'][0]['result']['url']

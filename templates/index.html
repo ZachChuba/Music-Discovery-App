@@ -37,6 +37,12 @@
                 Audio not supported by browser
         </audio>
     {% endif %}
+    <!-- Lyrics -->
+    {% if lyrics_url == None %}
+        <h3 class="text">Lyrics Unavailable</h3>
+    {% else %}
+        <a href={{ lyrics_url }}>Get The Lyrics</a>
+    {% endif %}
 </body>
     
 </html>

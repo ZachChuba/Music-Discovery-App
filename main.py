@@ -9,13 +9,14 @@ app = Flask(__name__)
 
 def app_runtime():
     # get list of songs and randomly select one
-    songs = apiwork.top_songs()
-    selected = songs[random.randint(0, len(songs) - 1)]
-    song_attrs = selected.getAttrs()
+    selected_song = apiwork.get_song()
+    lyrics = apiwork.get_song_lyrics(selected_song)
+    song_attrs = selected_song.getAttrs()
     
     return render_template(
         "index.html",
-        song_data = song_attrs
+        song_data = song_attrs,
+        lyrics_url = lyrics
     )
     
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
