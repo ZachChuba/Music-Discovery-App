@@ -104,6 +104,4 @@ def get_song_lyrics(song):
     
     lyrics_json = call_genius_api(name, title)
     
-    print(not (lyrics_json is None))
-    
     return lyrics_json['response']['hits'][0]['result']['url']
