@@ -29,6 +29,7 @@ python main.py
 
 # Known Issues / What I'd do in the future
 Issue: No audio previews are available for most of the top songs from Kanye West. If I had more time, I'd link to the spotify song instead of saying no preview available.
+
 Future Plan: I would add a drop-down menu to select an artist on the main page. Selecting one would reload the page with a new song from that artist. I would do this by adding a drop down box in the html, and by creating an event listener for an selection in javascript. The javascript would then pass the choice to the backend and refresh the page with a new song from that artist.
 
 # Problems I Experienced
