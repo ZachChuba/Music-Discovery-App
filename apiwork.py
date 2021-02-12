@@ -7,12 +7,6 @@ from dotenv import load_dotenv, find_dotenv
 from spotipy.oauth2 import SpotifyClientCredentials
 
 load_dotenv(find_dotenv())
-CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
-CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
-spotify_auth_manager = spotipy.SpotifyClientCredentials(
-    client_id=CLIENT_ID, 
-    client_secret=CLIENT_SECRET
-)
 
 def call_spotify_api():
     '''
@@ -22,7 +16,12 @@ def call_spotify_api():
     :return: Json of an artist's top pieces
     :rtype: json object
     '''
-    global spotify_auth_manager
+    CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
+    CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
+    spotify_auth_manager = spotipy.SpotifyClientCredentials(
+        client_id=CLIENT_ID, 
+        client_secret=CLIENT_SECRET
+    )
     
     # kanye, rick roll, random
     ARTIST_IDS = ['5K4W6rqBFWDnAN6FQUkS6x', '0gxyHStUsqpMadRV0Di1Qt', '7jVv8c5Fj3E9VhNjxT4snq']
